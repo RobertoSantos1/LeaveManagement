@@ -20,7 +20,7 @@ namespace HR.LeaveManagement.Api.Controllers
         {
             _mediator = mediator;
         }
-        
+        // READ
         [HttpGet]
         public async Task<List<LeaveTypeDto>> Get()
         {
@@ -34,25 +34,25 @@ namespace HR.LeaveManagement.Api.Controllers
             var leaveType = await _mediator.Send(new GetLeaveTypeDetailsQuery(id));
             return Ok(leaveType);
         }
-
+        // CREATE
         [HttpPost]
         public async Task<ActionResult> Post(CreateLeaveTypeCommand leaveType)
         {
             var response = await _mediator.Send(leaveType);
             return CreatedAtAction(nameof(Get), new { id = response });
         }
-
+        // UPDATE
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(UpdateLeaveTypeCommand leaveType)
         {
             await _mediator.Send(leaveType);
             return NoContent();
         }
-
+        // DELETE
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            await _mediator.Send(new DeleteLeaveTypeCommand { Id = id});
+            await _mediator.Send(new DeleteLeaveTypeCommand { Id = id });
             return NoContent();
         }
     }
